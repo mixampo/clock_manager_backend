@@ -1,13 +1,13 @@
 package rest.controller;
 
 import models.User;
+import org.omg.CORBA.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import rest.service.IUserContainerService;
 
@@ -17,13 +17,13 @@ public class UserController {
     @Autowired
     private IUserContainerService userContainerService;
 
-    @PostMapping(value = "/register",
+    @PostMapping(value = "/signup",
             headers = "Accept=application/json")
-    public ResponseEntity<Void> addUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<?> addUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
          if (userContainerService.addUser(user)) {
              HttpHeaders headers = new HttpHeaders();
              headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
-             return new ResponseEntity<>(headers, HttpStatus.CREATED);
+             return new ResponseEntity<>(user, headers, HttpStatus.CREATED);
          }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
