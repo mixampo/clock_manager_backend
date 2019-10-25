@@ -1,6 +1,8 @@
 package models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -10,6 +12,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "departmentId")
+    private Department department;
 
     @Column(name = "firstname", nullable = false)
     private String firstname;
@@ -32,6 +38,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public String getFirstname() {
@@ -76,7 +90,8 @@ public class User {
 
     public User(){}
 
-    public User(String firstname, String lastname, String username, String email, String password) {
+    public User(Department department, String firstname, String lastname, String username, String email, String password) {
+        this.department = department;
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
