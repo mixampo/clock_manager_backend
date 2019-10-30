@@ -11,10 +11,9 @@ import java.util.List;
 @RestController
 public class WorkTimeRegistrationController {
 
-//    @Autowired
-//    IWorkTimeRegistrationContainerService workTimeRegistrationContainerService;
-//
-//
-//    @GetMapping(value = "/worktimeregistration")
-//    public List<WorkTimeRegistration> getPasswordSets(return workTimeRegistrationContainerService.getWorkTimeRegistrations();}
+    @Autowired
+    IWorkTimeRegistrationContainerService workTimeRegistrationContainerService;
+    
+    @GetMapping(value = "/worktimeregistration")
+    public List<WorkTimeRegistration> getWorkTimeRegistrations(){return workTimeRegistrationContainerService.getWorkTimeRegistrations();}
 }

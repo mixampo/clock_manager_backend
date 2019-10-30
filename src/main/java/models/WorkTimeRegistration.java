@@ -31,6 +31,9 @@ public class WorkTimeRegistration {
     @Column(name = "endtime", nullable = false)
     private LocalTime workingDayEndtime;
 
+    @Column(name = "totalworkinghours", nullable = false)
+    private int totalWorkingHours;
+
     public int getId() {
         return id;
     }
@@ -77,6 +80,14 @@ public class WorkTimeRegistration {
 
     public void setWorkingDayEndtime(LocalTime workingDayEndtime) {
         this.workingDayEndtime = workingDayEndtime;
+    }
+
+    public int getTotalWorkingHours() {
+        return totalWorkingHours;
+    }
+
+    public void setTotalWorkingHours(int totalWorkingHours) {
+        this.totalWorkingHours = totalWorkingHours;
     }
 
     public WorkTimeRegistration(){}
