@@ -14,6 +14,6 @@ public class WorkTimeRegistrationController {
     @Autowired
     IWorkTimeRegistrationContainerService workTimeRegistrationContainerService;
     
-    @GetMapping(value = "/worktimeregistration")
+    @GetMapping(value = "/worktime-registrations")
     public List<WorkTimeRegistration> getWorkTimeRegistrations(){return workTimeRegistrationContainerService.getWorkTimeRegistrations();}
 }

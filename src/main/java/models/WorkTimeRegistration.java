@@ -1,10 +1,9 @@
 package models;
 
 import javax.persistence.*;
-import java.lang.invoke.WrongMethodTypeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "work_time_registration")
@@ -26,10 +25,10 @@ public class WorkTimeRegistration {
     private LocalDate workingDayDate;
 
     @Column(name = "starttime", nullable = false)
-    private LocalTime workingDayStarttime;
+    private LocalTime workingDayStartTime;
 
     @Column(name = "endtime", nullable = false)
-    private LocalTime workingDayEndtime;
+    private LocalTime workingDayEndTime;
 
     @Column(name = "totalworkinghours", nullable = false)
     private int totalWorkingHours;
@@ -66,20 +65,20 @@ public class WorkTimeRegistration {
         this.workingDayDate = workingDayDate;
     }
 
-    public LocalTime getWorkingDayStarttime() {
-        return workingDayStarttime;
+    public LocalTime getWorkingDayStartTime() {
+        return workingDayStartTime;
     }
 
-    public void setWorkingDayStarttime(LocalTime workingDayStarttime) {
-        this.workingDayStarttime = workingDayStarttime;
+    public void setWorkingDayStartTime(LocalTime workingDayStartTime) {
+        this.workingDayStartTime = workingDayStartTime;
     }
 
-    public LocalTime getWorkingDayEndtime() {
-        return workingDayEndtime;
+    public LocalTime getWorkingDayEndTime() {
+        return workingDayEndTime;
     }
 
-    public void setWorkingDayEndtime(LocalTime workingDayEndtime) {
-        this.workingDayEndtime = workingDayEndtime;
+    public void setWorkingDayEndTime(LocalTime workingDayEndTime) {
+        this.workingDayEndTime = workingDayEndTime;
     }
 
     public int getTotalWorkingHours() {
@@ -92,11 +91,11 @@ public class WorkTimeRegistration {
 
     public WorkTimeRegistration(){}
 
-    public WorkTimeRegistration(User user, Activity activity, LocalDate workingDayDate, LocalTime workingDayStarttime, LocalTime workingDayEndtime) {
+    public WorkTimeRegistration(User user, Activity activity, LocalDate workingDayDate, LocalTime workingDayStartTime, LocalTime workingDayEndTime) {
         this.user = user;
         this.activity = activity;
         this.workingDayDate = workingDayDate;
-        this.workingDayStarttime = workingDayStarttime;
-        this.workingDayEndtime = workingDayEndtime;
+        this.workingDayStartTime = workingDayStartTime;
+        this.workingDayEndTime = workingDayEndTime;
     }
 }
