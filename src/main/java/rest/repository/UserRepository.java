@@ -11,7 +11,11 @@ public class UserRepository implements IUserContainerRepo {
     private IUserJpaRepository jpaRepository;
 
     @Override
-    public void addUser(User user) {
-        jpaRepository.save(user);
-    }
+    public void addUser(User user) { jpaRepository.save(user); }
+
+    @Override
+    public User fetchUserByUsername(String username) { return jpaRepository.findUserByUsername(username); }
+
+    @Override
+    public User fetchUserById(int id) { return jpaRepository.getOne(id); }
 }

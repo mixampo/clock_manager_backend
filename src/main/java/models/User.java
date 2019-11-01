@@ -1,13 +1,18 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,9 +69,9 @@ public class User {
         this.lastname = lastname;
     }
 
-    public String getUsername() {
-        return username;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
 
     public void setUsername(String username) {
         this.username = username;
@@ -88,7 +93,48 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {return null;}
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     public User(){}
+
+    public User(int id, String username, String password){
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(String userName, String password){
+        this.username = userName;
+        this.password = password;
+    }
 
     public User(Department department, String firstname, String lastname, String username, String email, String password) {
         this.department = department;

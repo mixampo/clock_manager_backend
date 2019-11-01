@@ -1,20 +1,31 @@
 package rest.service;
 
+import com.sun.deploy.security.SelectableSecurityManager;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rest.repository.IUserContainerRepo;
+import shared.PasswordHasher;
 
 @Component
 public class UserContainerService implements IUserContainerService {
+    private PasswordHasher pwdHasher = new PasswordHasher();
 
     @Autowired
     private IUserContainerRepo repo;
 
-    //TODO add check for username already exists
     @Override
     public Boolean addUser(User user) {
-        repo.addUser(user);
-        return true;
+        if (repo.fetchUserByUsername(user.getUsername()) == null) {
+            user.setPassword(pwdHasher.getPasswordHash(user.getPassword()));
+            repo.addUser(user);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
+
+    @Override
+    public User getUserByUsername(User user){return repo.fetchUserByUsername(user.getUsername());}
 }
