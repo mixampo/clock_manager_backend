@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import rest.repository.IUserContainerRepo;
 import rest.security.JwtTokenProvider;
+import rest.security.model.JwtResponse;
+import rest.service.IUserContainerService;
 
 @RestController
 public class AuthController {
@@ -23,23 +25,20 @@ public class AuthController {
     JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    IUserContainerRepo userContainerRepo;
+    IUserContainerService userContainerService;
 
     @PostMapping(value = "/auth", headers = "Accept=application/json")
-    public ResponseEntity<String> authorize(@RequestBody User user) {
-
+    public ResponseEntity<?> authorize(@RequestBody User user) {
         try {
-            String username = user.getUsername();
+            //Authenticate user that wants to log in to application's frontend
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, user.getPassword()));
+            //Create token if user can be authorized (if user exists)
+            JwtResponse response = new JwtResponse(jwtTokenProvider.createToken(user.getUsername()), userContainerService.getUserByUsername(user));
 
-            int uId = userContainerRepo.fetchUserByUsername(username).getId();
-            String token = jwtTokenProvider.createToken(username) + "-Uid-" + uId;
-
-            return new ResponseEntity<>(token, HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (AuthenticationException e) {
             return new ResponseEntity<>("Invalid username/password supplied", HttpStatus.BAD_REQUEST);
         }
     }
-
 }
