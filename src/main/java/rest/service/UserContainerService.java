@@ -27,5 +27,10 @@ public class UserContainerService implements IUserContainerService {
     }
 
     @Override
+    public Boolean checkUserPwd(User user) {
+        return pwdHasher.getPasswordCheckStatus(user.getPassword(), getUserByUsername(user).getPassword());
+    }
+
+    @Override
     public User getUserByUsername(User user){return repo.fetchUserByUsername(user.getUsername());}
 }
