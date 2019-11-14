@@ -10,12 +10,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import rest.service.IUserContainerService;
+import rest.service.IUserService;
+
+import java.util.List;
 
 @RestController
 public class UserController {
 
     @Autowired
     private IUserContainerService userContainerService;
+
+    @Autowired
+    private IUserService userService;
 
     @PostMapping(value = "/signup",
             headers = "Accept=application/json")
@@ -27,4 +33,16 @@ public class UserController {
          }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    @PutMapping(value = "/users",
+        headers = "Accept=application/json")
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        if (userService.updateUser(user)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(value = "/users")
+    public List<User> getUsers(){return userContainerService.getAllUsers();}
 }
