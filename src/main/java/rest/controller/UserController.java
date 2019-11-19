@@ -34,6 +34,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200/profile")
     @PutMapping(value = "/users",
         headers = "Accept=application/json")
     public ResponseEntity<?> updateUser(@RequestBody User user) {
