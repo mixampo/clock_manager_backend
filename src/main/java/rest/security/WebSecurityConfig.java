@@ -41,8 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth").permitAll()
                 .antMatchers("/departments").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/worktime-registrations/**").authenticated()
-                .antMatchers(HttpMethod.GET, "/worktime-registrations/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/worktime-registrations/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/worktime-registrations/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "worktime-registrations/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
