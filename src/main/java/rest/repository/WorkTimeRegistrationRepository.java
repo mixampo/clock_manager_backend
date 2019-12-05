@@ -12,7 +12,11 @@ public class WorkTimeRegistrationRepository implements IWorkTimeRegistrationCont
     @Autowired
     private IWorkTimeRegistrationJpaRepository repo;
 
+    @Override
     public List<WorkTimeRegistration> fetchWorkTimeRegistrations() {
         return repo.findAll();
     }
+
+    @Override
+    public void addWorkTimeRegistration(WorkTimeRegistration workTimeRegistration) { repo.save(workTimeRegistration); }
 }

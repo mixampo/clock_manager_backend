@@ -16,6 +16,7 @@ public class WorkTimeRegistrationContainerService implements IWorkTimeRegistrati
     @Autowired
     private IWorkTimeRegistrationContainerRepo repo;
 
+    @Override
     public List<WorkTimeRegistration> getWorkTimeRegistrations(int userId) {
         List<WorkTimeRegistration> workTimeRegistrations = repo.fetchWorkTimeRegistrations();
         List<WorkTimeRegistration> filteredWorkTimeRegistrations = new ArrayList<>();
@@ -28,6 +29,7 @@ public class WorkTimeRegistrationContainerService implements IWorkTimeRegistrati
         return filteredWorkTimeRegistrations;
     }
 
+    @Override
     public List<WorkTimeRegistration> getWorkTimeRegistrationByDate(int userId, String beginDateString, String endDateString) {
         List<WorkTimeRegistration> workTimeRegistrations = repo.fetchWorkTimeRegistrations();
         List<WorkTimeRegistration> filteredWorkTimeRegistrations = new ArrayList<>();
@@ -42,5 +44,11 @@ public class WorkTimeRegistrationContainerService implements IWorkTimeRegistrati
             }
         }
         return filteredWorkTimeRegistrations;
+    }
+
+    @Override
+    public void addWorkTimeRegistration(WorkTimeRegistration workTimeRegistration) {
+        //TODO calculate total working hours
+        repo.addWorkTimeRegistration(workTimeRegistration);
     }
 }

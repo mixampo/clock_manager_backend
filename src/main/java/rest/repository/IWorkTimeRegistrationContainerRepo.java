@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IWorkTimeRegistrationContainerRepo {
     List<WorkTimeRegistration> fetchWorkTimeRegistrations();
+    void addWorkTimeRegistration(WorkTimeRegistration workTimeRegistration);
 }

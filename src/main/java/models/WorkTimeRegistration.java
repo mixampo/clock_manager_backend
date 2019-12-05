@@ -1,6 +1,7 @@
 package models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,7 +17,6 @@ public class WorkTimeRegistration {
     private int id;
 
     @ManyToOne(optional = false)
-    @JsonIgnore
     @JoinColumn(name = "userId")
     private User user;
 
@@ -44,6 +44,8 @@ public class WorkTimeRegistration {
         this.id = id;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "user")
     public User getUser() {
         return user;
     }
