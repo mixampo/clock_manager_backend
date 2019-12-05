@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rest.repository.IWorkTimeRegistrationContainerRepo;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.HOURS;
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 @Component
 public class WorkTimeRegistrationContainerService implements IWorkTimeRegistrationContainerService {
@@ -48,7 +52,12 @@ public class WorkTimeRegistrationContainerService implements IWorkTimeRegistrati
 
     @Override
     public void addWorkTimeRegistration(WorkTimeRegistration workTimeRegistration) {
-        //TODO calculate total working hours
+        //Calculate total amount of working hours and round it on 1 decimal
+        double workingHours =  workTimeRegistration.getWorkingDayStartTime().until(workTimeRegistration.getWorkingDayEndTime(), MINUTES) / 60.0;
+        workingHours = Math.round(workingHours * 10.0) / 10.0;
+
+        workTimeRegistration.setTotalWorkingHours(workingHours);
+
         repo.addWorkTimeRegistration(workTimeRegistration);
     }
 }
