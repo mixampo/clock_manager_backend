@@ -9,4 +9,5 @@ public interface IWorkTimeRegistrationContainerService {
     List<WorkTimeRegistration> getWorkTimeRegistrations(int userId);
     List<WorkTimeRegistration> getWorkTimeRegistrationByDate(int userId, String beginDate, String endDate);
     void addWorkTimeRegistration(WorkTimeRegistration workTimeRegistration);
+    void updateWorkTimeRegistration(int id, WorkTimeRegistration workTimeRegistration);
 }

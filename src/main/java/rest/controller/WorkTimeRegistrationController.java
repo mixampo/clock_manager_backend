@@ -44,4 +44,12 @@ public class WorkTimeRegistrationController {
         headers.setLocation(ucBuilder.path("/worktime-registration/{id}").buildAndExpand(workTimeRegistration.getId()).toUri());
         return new ResponseEntity<>(workTimeRegistration, headers, HttpStatus.CREATED);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200/clocking")
+    @PutMapping(value = "/worktime-registrations/{id}",
+            headers = "Accept=application/json")
+    public ResponseEntity<?> updateWorkTimeRegistration(@PathVariable("id") int id, @RequestBody WorkTimeRegistration workTimeRegistration) {
+        workTimeRegistrationContainerService.updateWorkTimeRegistration(id, workTimeRegistration);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

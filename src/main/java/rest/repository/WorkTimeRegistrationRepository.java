@@ -19,4 +19,7 @@ public class WorkTimeRegistrationRepository implements IWorkTimeRegistrationCont
 
     @Override
     public void addWorkTimeRegistration(WorkTimeRegistration workTimeRegistration) { repo.save(workTimeRegistration); }
+
+    @Override
+    public void updateWorkTimeRegistration(WorkTimeRegistration workTimeRegistration) { repo.save(workTimeRegistration); }
 }

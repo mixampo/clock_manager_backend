@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import rest.repository.IWorkTimeRegistrationContainerRepo;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,12 +50,20 @@ public class WorkTimeRegistrationContainerService implements IWorkTimeRegistrati
 
     @Override
     public void addWorkTimeRegistration(WorkTimeRegistration workTimeRegistration) {
-        //Calculate total amount of working hours and round it on 1 decimal
-        double workingHours =  workTimeRegistration.getWorkingDayStartTime().until(workTimeRegistration.getWorkingDayEndTime(), MINUTES) / 60.0;
-        workingHours = Math.round(workingHours * 10.0) / 10.0;
-
-        workTimeRegistration.setTotalWorkingHours(workingHours);
-
+        workTimeRegistration.setTotalWorkingHours(calculateTotalWorkingHours(workTimeRegistration.getWorkingDayStartTime(), workTimeRegistration.getWorkingDayEndTime()));
         repo.addWorkTimeRegistration(workTimeRegistration);
+    }
+
+    @Override
+    public void updateWorkTimeRegistration(int id, WorkTimeRegistration workTimeRegistration) {
+        workTimeRegistration.setTotalWorkingHours(calculateTotalWorkingHours(workTimeRegistration.getWorkingDayStartTime(), workTimeRegistration.getWorkingDayEndTime()));
+        repo.updateWorkTimeRegistration(workTimeRegistration);
+    }
+
+    private Double calculateTotalWorkingHours(LocalTime workingDayStartTime, LocalTime workingDayEndTime) {
+        //Calculate total amount of working hours and round it on 1 decimal
+        double workingHours =  workingDayStartTime.until(workingDayEndTime, MINUTES) / 60.0;
+        workingHours = Math.round(workingHours * 10.0) / 10.0;
+        return  workingHours;
     }
 }
