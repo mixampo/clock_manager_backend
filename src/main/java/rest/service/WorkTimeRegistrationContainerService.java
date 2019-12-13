@@ -60,6 +60,9 @@ public class WorkTimeRegistrationContainerService implements IWorkTimeRegistrati
         repo.updateWorkTimeRegistration(workTimeRegistration);
     }
 
+    @Override
+    public void deleteWorkTimeRegistration(int id) { repo.deleteWorkTimeRegistration(id); }
+
     private Double calculateTotalWorkingHours(LocalTime workingDayStartTime, LocalTime workingDayEndTime) {
         //Calculate total amount of working hours and round it on 1 decimal
         double workingHours =  workingDayStartTime.until(workingDayEndTime, MINUTES) / 60.0;

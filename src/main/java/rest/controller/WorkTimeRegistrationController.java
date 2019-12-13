@@ -46,6 +46,13 @@ public class WorkTimeRegistrationController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200/clocking")
+    @DeleteMapping(value = "/worktime-registrations/{id}")
+    public ResponseEntity<?> deleteWorkTimeRegistration(@PathVariable("id") int id) {
+        workTimeRegistrationContainerService.deleteWorkTimeRegistration(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200/clocking")
     @PutMapping(value = "/worktime-registrations/{id}",
             headers = "Accept=application/json")
     public ResponseEntity<?> updateWorkTimeRegistration(@PathVariable("id") int id, @RequestBody WorkTimeRegistration workTimeRegistration) {
@@ -53,3 +60,4 @@ public class WorkTimeRegistrationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
+

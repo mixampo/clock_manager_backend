@@ -9,4 +9,5 @@ public interface IWorkTimeRegistrationContainerRepo {
     List<WorkTimeRegistration> fetchWorkTimeRegistrations();
     void addWorkTimeRegistration(WorkTimeRegistration workTimeRegistration);
     void updateWorkTimeRegistration(WorkTimeRegistration workTimeRegistration);
+    void deleteWorkTimeRegistration(int id);
 }

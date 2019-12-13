@@ -22,4 +22,7 @@ public class WorkTimeRegistrationRepository implements IWorkTimeRegistrationCont
 
     @Override
     public void updateWorkTimeRegistration(WorkTimeRegistration workTimeRegistration) { repo.save(workTimeRegistration); }
+
+    @Override
+    public void deleteWorkTimeRegistration(int id) { repo.deleteById(id); }
 }
