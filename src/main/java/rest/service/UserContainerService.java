@@ -23,19 +23,26 @@ public class UserContainerService implements IUserContainerService {
             user.setPassword(pwdHasher.getPasswordHash(user.getPassword()));
             repo.addUser(user);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
 
     @Override
     public Boolean checkUserPwd(User user) {
-        return pwdHasher.getPasswordCheckStatus(user.getPassword(), getUserByUsername(user).getPassword());
+        User fetchedUser = getUserByUsername(user);
+
+        if (fetchedUser == null) {
+            return false;
+        } else {
+            return pwdHasher.getPasswordCheckStatus(user.getPassword(), fetchedUser.getPassword());
+        }
     }
 
     @Override
-    public User getUserByUsername(User user){return repo.fetchUserByUsername(user.getUsername());}
+    public User getUserByUsername(User user) {
+        return repo.fetchUserByUsername(user.getUsername());
+    }
 
     @Override
     public List<User> getAllUsers() {
@@ -43,5 +50,7 @@ public class UserContainerService implements IUserContainerService {
     }
 
     @Override
-    public User getUserById(int id) { return repo.fetchUserById(id); }
+    public User getUserById(int id) {
+        return repo.fetchUserById(id);
+    }
 }
