@@ -12,5 +12,9 @@ public class ActivityRepository implements IActivityContainerRepo {
     @Autowired
     IActivityJpaRepository repo;
 
+    @Override
     public List<Activity> fetchActivitiesByDepartmentId(int departmentId) { return repo.findAll(); }
+
+    @Override
+    public List<Activity> fetchAllActivities() { return repo.findAll(); }
 }

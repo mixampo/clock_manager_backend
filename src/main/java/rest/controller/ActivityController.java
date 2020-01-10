@@ -25,4 +25,10 @@ public class ActivityController {
             ) {
         return activityContainerService.getActivitiesByDepartmentId(departmentID);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200/clocking")
+    @GetMapping(value = "/activities/all")
+    public List<Activity> getAllActivities() {
+        return activityContainerService.getAllActivities();
+    }
 }

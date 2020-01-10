@@ -26,4 +26,7 @@ public class ActivityContainerService implements IActivityContainerService {
        }
         return filteredActivities;
     }
+
+    @Override
+    public List<Activity> getAllActivities() { return repo.fetchAllActivities(); }
 }
